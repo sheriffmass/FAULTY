@@ -4,18 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Faulty Witness: Memory vs. Justice</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --charcoal: #1c1c1e;
+            --deep-slate: #2c2c34;
+            --muted-navy: #1e2a3a;
+            --warm-gray: #3a3a42;
+            --light-warm: #f5f3f0;
+            --off-white: #faf9f7;
+            --parchment: #edeae5;
+            --gold: #c9a84c;
+            --gold-light: #d4b96a;
+            --gold-dim: rgba(201, 168, 76, 0.15);
+            --burgundy: #7a2e3a;
+            --burgundy-light: #8f3b48;
+            --burgundy-dim: rgba(122, 46, 58, 0.12);
+            --text-primary: #2a2a2e;
+            --text-secondary: #555560;
+            --text-muted: #78788a;
+            --border-subtle: #d8d4ce;
+            --shadow-soft: rgba(28, 28, 30, 0.08);
+            --shadow-medium: rgba(28, 28, 30, 0.15);
+            --shadow-heavy: rgba(28, 28, 30, 0.25);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f4f4f4;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.75;
+            color: var(--text-primary);
+            background-color: var(--light-warm);
         }
 
         .skip-link {
@@ -33,45 +63,87 @@
             top: 10px;
             width: auto;
             height: auto;
-            background: #fff;
-            color: #000;
+            background: var(--off-white);
+            color: var(--charcoal);
             padding: 0.5em 1em;
-            border: 2px solid #e94560;
-            border-radius: 5px;
+            border: 2px solid var(--gold);
+            border-radius: 3px;
         }
 
+        /* ── Header ── */
         header {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: linear-gradient(160deg, var(--charcoal) 0%, var(--muted-navy) 50%, var(--deep-slate) 100%);
             color: #fff;
-            padding: 2rem 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            padding: 4rem 0 3.5rem;
+            box-shadow: 0 4px 20px var(--shadow-heavy);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(255,255,255,0.015) 2px,
+                rgba(255,255,255,0.015) 4px
+            );
+            pointer-events: none;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent 0%, var(--gold) 20%, var(--gold) 80%, transparent 100%);
         }
 
         .header-content {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 0 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
         }
 
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+            font-family: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
+            font-size: 2.8rem;
+            margin-bottom: 0.75rem;
             font-weight: 700;
+            letter-spacing: 0.02em;
+            line-height: 1.2;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
         .subtitle {
-            font-size: 1.2rem;
-            color: #e94560;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            color: var(--gold-light);
             font-weight: 300;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
         }
 
+        /* ── Navigation ── */
         nav {
-            background-color: #0f3460;
-            padding: 1rem 0;
+            background-color: var(--deep-slate);
+            padding: 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 12px var(--shadow-medium);
+            border-bottom: 1px solid rgba(201, 168, 76, 0.2);
         }
 
         nav ul {
@@ -79,178 +151,296 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0;
         }
 
         nav li {
-            margin: 0 1.5rem;
+            margin: 0;
         }
 
         nav a {
-            color: #fff;
+            color: rgba(255,255,255,0.7);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s ease;
-            padding: 0.5rem 1rem;
-            display: block;
-            min-width: 44px;
-            min-height: 44px;
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+            padding: 1rem 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
+            min-width: 44px;
+            min-height: 44px;
+            border-bottom: 2px solid transparent;
         }
 
-        nav a:hover, nav a:focus, nav a.active {
-            color: #e94560;
-            background-color: rgba(233, 69, 96, 0.1);
-            border-radius: 5px;
-            outline: 2px solid #e94560;
+        nav a:hover, nav a:focus {
+            color: var(--gold-light);
+            background-color: rgba(201, 168, 76, 0.08);
+            border-bottom-color: var(--gold);
+            outline: none;
         }
 
+        nav a.active {
+            color: var(--gold);
+            border-bottom-color: var(--gold);
+            background-color: rgba(201, 168, 76, 0.1);
+        }
+
+        nav a:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: -2px;
+        }
+
+        /* ── Main Container ── */
         .container {
-            max-width: 1200px;
-            margin: 2rem auto;
+            max-width: 860px;
+            margin: 3rem auto;
             padding: 0 2rem;
         }
 
+        /* ── Section Cards ── */
         .section {
-            background: #fff;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .section h2 {
-            color: #1a1a2e;
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            border-bottom: 3px solid #e94560;
-            padding-bottom: 0.5rem;
-        }
-
-        .section h3 {
-            color: #0f3460;
-            font-size: 1.5rem;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .section p {
-            margin-bottom: 1rem;
-        }
-
-        .highlight-box {
-            background-color: #fff5f5;
-            border-left: 4px solid #e94560;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 5px;
-        }
-
-        .stat-box {
-            background: linear-gradient(135deg, #e94560 0%, #c72c41 100%);
-            color: #fff;
-            padding: 2rem;
-            border-radius: 10px;
-            text-align: center;
-            margin: 2rem 0;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-        }
-
-        .stat-box .number {
-            font-size: 3rem;
-            font-weight: 700;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-box .description {
-            font-size: 1.1rem;
-        }
-
-        .case-study {
-            background-color: #f8f9fa;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 8px;
-            border: 1px solid #dee2e6;
-        }
-
-        .case-study h3 {
-            color: #e94560;
-            margin-bottom: 0.75rem;
-            font-size: 1.2rem;
-        }
-
-        ul.key-points {
-            list-style: none;
-            padding-left: 0;
-            margin: 1rem 0;
-        }
-
-        ul.key-points li {
-            padding: 0.75rem 0;
-            padding-left: 2rem;
+            background: var(--off-white);
+            padding: 3rem 3rem 2.5rem;
+            margin-bottom: 2.5rem;
+            border-radius: 4px;
+            box-shadow: 0 1px 4px var(--shadow-soft), 0 8px 24px var(--shadow-soft);
+            border: 1px solid var(--border-subtle);
             position: relative;
         }
 
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--burgundy), var(--gold) 50%, var(--burgundy));
+            border-radius: 4px 4px 0 0;
+        }
+
+        .section h2 {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            color: var(--charcoal);
+            font-size: 1.85rem;
+            margin-bottom: 1.75rem;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .section h3 {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            color: var(--muted-navy);
+            font-size: 1.3rem;
+            margin-top: 2.25rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .section p {
+            margin-bottom: 1.15rem;
+            color: var(--text-secondary);
+        }
+
+        /* ── Highlight Boxes ── */
+        .highlight-box {
+            background: linear-gradient(135deg, var(--burgundy-dim) 0%, rgba(201, 168, 76, 0.06) 100%);
+            border-left: 3px solid var(--burgundy);
+            padding: 1.5rem 1.75rem;
+            margin: 1.75rem 0;
+            border-radius: 2px;
+        }
+
+        .highlight-box p {
+            color: var(--text-primary);
+            margin-bottom: 0;
+        }
+
+        /* ── Stat Boxes ── */
+        .stat-box {
+            background: linear-gradient(160deg, var(--charcoal) 0%, var(--muted-navy) 100%);
+            color: #fff;
+            padding: 2.5rem 2rem;
+            border-radius: 4px;
+            text-align: center;
+            margin: 2.5rem 0;
+            box-shadow: 0 4px 16px var(--shadow-heavy);
+            border: 1px solid rgba(201, 168, 76, 0.25);
+            position: relative;
+        }
+
+        .stat-box::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: var(--gold);
+        }
+
+        .stat-box .number {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 0.75rem;
+            color: var(--gold);
+        }
+
+        .stat-box .description {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* ── Case Studies ── */
+        .case-study {
+            background-color: var(--parchment);
+            padding: 1.75rem;
+            margin: 1.75rem 0;
+            border-radius: 3px;
+            border: 1px solid var(--border-subtle);
+            border-left: 3px solid var(--warm-gray);
+            position: relative;
+        }
+
+        .case-study h3 {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            color: var(--burgundy);
+            margin-bottom: 0.75rem;
+            margin-top: 0;
+            font-size: 1.15rem;
+        }
+
+        .case-study p {
+            color: var(--text-secondary);
+        }
+
+        /* ── Key Points ── */
+        ul.key-points {
+            list-style: none;
+            padding-left: 0;
+            margin: 1.25rem 0;
+        }
+
+        ul.key-points li {
+            padding: 0.85rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(216, 212, 206, 0.5);
+        }
+
+        ul.key-points li:last-child {
+            border-bottom: none;
+        }
+
         ul.key-points li:before {
-            content: "→";
-            color: #e94560;
-            font-weight: bold;
+            content: "\2014";
+            color: var(--gold);
+            font-weight: 700;
             position: absolute;
             left: 0;
         }
 
+        /* ── Footer ── */
         footer {
-            background-color: #1a1a2e;
-            color: #fff;
+            background: linear-gradient(160deg, var(--charcoal) 0%, var(--deep-slate) 100%);
+            color: rgba(255,255,255,0.65);
             text-align: center;
-            padding: 2rem 0;
+            padding: 2.5rem 2rem;
             margin-top: 3rem;
+            border-top: 2px solid var(--gold);
+            font-size: 0.9rem;
         }
 
+        /* ── Quotes ── */
         .quote {
+            font-family: 'Libre Baskerville', Georgia, serif;
             font-style: italic;
-            color: #555;
-            padding: 1rem 2rem;
-            border-left: 3px solid #0f3460;
-            margin: 1.5rem 0;
-            background-color: #f8f9fa;
+            color: var(--text-secondary);
+            padding: 1.5rem 2rem;
+            border-left: 3px solid var(--gold);
+            margin: 1.75rem 0;
+            background-color: var(--gold-dim);
+            border-radius: 0 3px 3px 0;
+            font-size: 0.95rem;
+            line-height: 1.8;
         }
 
         .quote-author {
             display: block;
-            margin-top: 0.5rem;
+            margin-top: 0.75rem;
             font-weight: 600;
-            color: #0f3460;
+            font-family: 'Inter', sans-serif;
+            font-style: normal;
+            color: var(--warm-gray);
+            font-size: 0.85rem;
+            letter-spacing: 0.02em;
         }
 
+        /* ── Info Grid ── */
         .info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1.25rem;
             margin: 2rem 0;
         }
 
         .info-card {
-            background: #f8f9fa;
+            background: var(--off-white);
             padding: 1.5rem;
-            border-radius: 8px;
-            border-left: 4px solid #e94560;
+            border-radius: 3px;
+            border: 1px solid var(--border-subtle);
+            border-top: 3px solid var(--gold);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .info-card:hover {
+            box-shadow: 0 4px 16px var(--shadow-medium);
+            transform: translateY(-2px);
         }
 
         .info-card h3 {
-            color: #0f3460;
-            margin-bottom: 0.75rem;
+            font-family: 'Libre Baskerville', Georgia, serif;
+            color: var(--charcoal);
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+            margin-top: 0;
         }
 
+        .info-card p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.65;
+        }
+
+        /* ── Bold/Strong styling ── */
+        .section strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* ── Responsive ── */
         @media (max-width: 768px) {
             h1 {
                 font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 0.95rem;
+                letter-spacing: 0.1em;
+            }
+
+            header {
+                padding: 3rem 0 2.5rem;
             }
 
             nav ul {
@@ -259,15 +449,30 @@
             }
 
             nav li {
-                margin: 0.5rem 0;
+                margin: 0;
+            }
+
+            nav a {
+                padding: 0.75rem 1.5rem;
+                border-bottom: none;
+                border-left: 2px solid transparent;
+            }
+
+            nav a:hover, nav a:focus, nav a.active {
+                border-bottom: none;
+                border-left-color: var(--gold);
             }
 
             .section {
-                padding: 1.5rem;
+                padding: 2rem 1.5rem;
+            }
+
+            .container {
+                margin: 2rem auto;
             }
 
             .stat-box .number {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
             .info-grid {
@@ -278,6 +483,14 @@
         @media (prefers-reduced-motion: reduce) {
             html {
                 scroll-behavior: auto !important;
+            }
+
+            .info-card {
+                transition: none;
+            }
+
+            .info-card:hover {
+                transform: none;
             }
         }
     </style>
@@ -508,7 +721,7 @@
             <p>By acknowledging the "confidence-accuracy paradox" and implementing standardized procedural reforms, the legal system can move toward a "positive justice" that respects both the dignity of the victim and the rights of the accused.</p>
 
             <div class="stat-box" role="complementary">
-                <span class="description" style="font-size: 1.3rem; line-height: 1.8;">In a system where a single memory can determine the course of a human life, scientific safeguards are not just a technical preference—<strong>they are a moral necessity for a legitimate society.</strong></span>
+                <span class="description" style="font-size: 1.2rem; line-height: 1.9; font-family: 'Libre Baskerville', Georgia, serif;">In a system where a single memory can determine the course of a human life, scientific safeguards are not just a technical preference—<strong>they are a moral necessity for a legitimate society.</strong></span>
             </div>
         </section>
     </div>
@@ -562,9 +775,9 @@
         // Add focus styles for keyboard navigation
         document.querySelectorAll('a').forEach(link => {
             link.addEventListener('focus', function() {
-                this.style.outline = '2px solid #e94560';
+                this.style.outline = '2px solid #c9a84c';
             });
-            
+
             link.addEventListener('blur', function() {
                 this.style.outline = 'none';
             });
