@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Faulty Witness: Memory vs. Justice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+
+        .skip-link {
+            position: absolute;
+            left: -999px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .skip-link:focus {
+            left: 10px;
+            top: 10px;
+            width: auto;
+            height: auto;
+            background: #fff;
+            color: #000;
+            padding: 0.5em 1em;
+            border: 2px solid #e94560;
+            border-radius: 5px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            padding: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #e94560;
+            font-weight: 300;
+        }
+
+        nav {
+            background-color: #0f3460;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        nav li {
+            margin: 0 1.5rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            display: block;
+            min-width: 44px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        nav a:hover, nav a:focus, nav a.active {
+            color: #e94560;
+            background-color: rgba(233, 69, 96, 0.1);
+            border-radius: 5px;
+            outline: 2px solid #e94560;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            background: #fff;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            color: #1a1a2e;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid #e94560;
+            padding-bottom: 0.5rem;
+        }
+
+        .section h3 {
+            color: #0f3460;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+        }
+
+        .highlight-box {
+            background-color: #fff5f5;
+            border-left: 4px solid #e94560;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 5px;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #e94560 0%, #c72c41 100%);
+            color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .stat-box .number {
+            font-size: 3rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-box .description {
+            font-size: 1.1rem;
+        }
+
+        .case-study {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+
+        .case-study h3 {
+            color: #e94560;
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        ul.key-points {
+            list-style: none;
+            padding-left: 0;
+            margin: 1rem 0;
+        }
+
+        ul.key-points li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        ul.key-points li:before {
+            content: "→";
+            color: #e94560;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        footer {
+            background-color: #1a1a2e;
+            color: #fff;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .quote {
+            font-style: italic;
+            color: #555;
+            padding: 1rem 2rem;
+            border-left: 3px solid #0f3460;
+            margin: 1.5rem 0;
+            background-color: #f8f9fa;
+        }
+
+        .quote-author {
+            display: block;
+            margin-top: 0.5rem;
+            font-weight: 600;
+            color: #0f3460;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .info-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #e94560;
+        }
+
+        .info-card h3 {
+            color: #0f3460;
+            margin-bottom: 0.75rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav li {
+                margin: 0.5rem 0;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .stat-box .number {
+                font-size: 2rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#exigence" class="skip-link">Skip to main content</a>
+
+    <header>
+        <div class="header-content">
+            <h1>The Faulty Witness</h1>
+            <p class="subtitle">Pairing Subjective Memory with Objective Justice</p>
+        </div>
+    </header>
+
+    <nav role="navigation" aria-label="Main navigation">
+        <ul>
+            <li><a href="#exigence" class="active">Exigence</a></li>
+            <li><a href="#context">Context</a></li>
+            <li><a href="#voices">Voices</a></li>
+            <li><a href="#argument">Argument</a></li>
+        </ul>
+    </nav>
+
+    <div class="container" role="main">
+        <!-- EXIGENCE SECTION -->
+        <section id="exigence" class="section" aria-labelledby="exigence-heading">
+            <h2 id="exigence-heading">Exigence: Why This Matters Now</h2>
+            
+            <div class="highlight-box" role="complementary">
+                <p><strong>The Problem:</strong> The American legal system operates on a fundamental tension between the perceived authority of human testimony and the empirical reality of cognitive fallibility.</p>
+            </div>
+
+            <p>In criminal courtrooms across America, confident eyewitness testimony can determine whether someone spends their life in prison or walks free. But what happens when that confidence is built on corrupted memory?</p>
+
+            <h3>The Confidence-Accuracy Paradox</h3>
+            <p>Modern psychological research reveals a disturbing truth: <strong>high confidence frequently masks corrupted data</strong>. When a witness says "I'm 100% certain," juries believe them. The legal system treats subjective clarity as objective truth.</p>
+
+            <p>In criminal law, the "subjective clarity" of an eyewitness is often treated as a direct reflection of objective truth. However, modern psychological research suggests that high confidence frequently masks corrupted data, leading to a profound conflict between procedural tradition and systemic integrity.</p>
+
+            <div class="stat-box" role="complementary">
+                <span class="number">76%</span>
+                <span class="description">of the first 250 DNA exoneration cases involved eyewitness misidentification</span>
+            </div>
+
+            <h3>Real Cases, Real Consequences</h3>
+
+            <div class="case-study" role="complementary">
+                <h3>Ronald Cotton</h3>
+                <p>Jennifer Thompson testified she was <strong>"100 percent certain"</strong> Cotton was her attacker. Her absolute certainty convinced the jury. She was factually incorrect. Cotton spent 11 years in prison for a crime he didn't commit.</p>
+                <p>Thompson's absolute certainty served as a vessel of moral truth for the jury, yet she was factually incorrect.</p>
+            </div>
+
+            <div class="case-study" role="complementary">
+                <h3>Marvin Anderson</h3>
+                <p><strong>"Double exposure"</strong> in police procedures—where Anderson was the only person to appear in both a photo array and a physical lineup—created artificial familiarity. The witness interpreted this manufactured recognition as genuine memory.</p>
+            </div>
+
+            <div class="case-study" role="complementary">
+                <h3>Uriah Courtney</h3>
+                <p>Suggestive lineup procedures and repeated interviews reshaped witness memories. Shaky initial identifications became firm "objective truth" for the jury through investigative contamination.</p>
+                <p>When police reinforce a witness's choice with statements like "You picked the same guy," they literally rewrite the witness's memory, creating a collaborative fiction that the legal system is ill-equipped to dismantle.</p>
+            </div>
+
+            <h3>The Urgent Need for Reform</h3>
+            <p>This exigence—the urgent need to reconcile the human voice with scientific fact—is driven by a history of measurably wrong outcomes that undermine the legitimacy of the justice system.</p>
+
+            <ul class="key-points">
+                <li><strong>Subjective certainty</strong> is treated as a direct reflection of objective truth</li>
+                <li><strong>Suggestive procedures</strong> amplify cognitive limitations</li>
+                <li><strong>Contaminated memories</strong> feel genuine to witnesses, making them impossible to detect through cross-examination</li>
+                <li><strong>Wrongful convictions</strong> destroy lives and erode public trust in justice</li>
+            </ul>
+
+            <p>By examining how suggestive procedures amplify cognitive limitations, it becomes clear that courtroom "truth" is often not an objective recording of the past, but a <strong>fragile reconstruction</strong> that requires scientific safeguards to remain legitimate.</p>
+        </section>
+
+        <!-- CONTEXT SECTION -->
+        <section id="context" class="section" aria-labelledby="context-heading">
+            <h2 id="context-heading">Context: The Philosophical Foundation</h2>
+            
+            <h3>The "Moral Weight" of Human Testimony</h3>
+            <p>The legal system's privileging of subjective certainty stems from a philosophical commitment to the "moral weight" of human testimony, a tradition that dangerously conflates emotional conviction with factual accuracy.</p>
+
+            <p>This preference reflects a commitment to human agency, trusting that a jury of peers can use collective wisdom to discern truth from competing narratives. The archetype of the fighter for justice, in a legal context, illustrates the human desire to translate emotional chaos into clarity.</p>
+
+            <div class="highlight-box" role="complementary">
+                <p><strong>The Danger:</strong> A significant danger arises when this personal clarity is mistaken for objective fact.</p>
+            </div>
+
+            <h3>Humanity vs. Machinery</h3>
+            <div class="quote" role="complementary">
+                "More than machinery we need humanity. More than cleverness we need kindness and gentleness."
+                <span class="quote-author">— Charlie Chaplin, The Great Dictator (01:55:12)</span>
+            </div>
+
+            <p>In a courtroom, this "humanity" often manifests as a jury's instinctive trust in a witness who displays absolute certainty. While Chaplin's appeal for humanity is noble, it becomes dangerous when applied to memory—a cognitive process that is neither kind nor gentle, but vulnerable to contamination.</p>
+
+            <h3>The Assumption of Intuitive Detection</h3>
+            <p>This reliance on "subjective clarity" assumes that jurors can intuitively detect errors through cross-examination. However, it fails to account for a critical fact: <strong>witnesses often genuinely believe their contaminated memories</strong>, making them impossible to "catch" through traditional human intuition.</p>
+
+            <div class="info-grid" role="complementary">
+                <div class="info-card">
+                    <h3>Traditional Belief</h3>
+                    <p>Confident witnesses are accurate witnesses</p>
+                </div>
+                <div class="info-card">
+                    <h3>Scientific Reality</h3>
+                    <p>Confidence is often a product of contamination, not accuracy</p>
+                </div>
+                <div class="info-card">
+                    <h3>Legal Consequence</h3>
+                    <p>Innocent people convicted based on sincere but false testimony</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- VOICES SECTION -->
+        <section id="voices" class="section" aria-labelledby="voices-heading">
+            <h2 id="voices-heading">Voices: What the Experts Say</h2>
+            
+            <h3>The Confidence-Accuracy Paradox</h3>
+            <p>Cognitive science exposes a "confidence-accuracy paradox" that directly contradicts the legal system's foundational assumption that witness certainty reflects memorial accuracy.</p>
+
+            <div class="case-study" role="complementary">
+                <h3>Brandon Garrett, Legal Scholar</h3>
+                <div class="quote">
+                    "In 76% of the first 250 DNA exoneration cases, eyewitnesses misidentified an innocent person."
+                    <span class="quote-author">— Convicting the Innocent: Where Criminal Prosecutions Go Wrong (48)</span>
+                </div>
+                <p>These statistics provide a staggering logical foundation for the argument that subjective certainty is a poor indicator of factual truth.</p>
+            </div>
+
+            <div class="case-study" role="complementary">
+                <h3>Elizabeth Loftus, Expert Psychologist</h3>
+                <div class="quote">
+                    Memory is a "reconstructive process, vulnerable to... contamination."
+                    <span class="quote-author">— Eyewitness Testimony (21)</span>
+                </div>
+                <p>Loftus dismantles the myth of the perfect witness by revealing that memory is not a recording device but a reconstruction process—one that can be easily manipulated.</p>
+            </div>
+
+            <h3>How Investigation Procedures Corrupt Memory</h3>
+            <p>Research indicates that a witness's certainty is often a product of <strong>external contamination</strong> rather than internal accuracy. This contamination is often manufactured by the investigation process itself.</p>
+
+            <div class="info-grid" role="complementary">
+                <div class="info-card">
+                    <h3>Double Exposure</h3>
+                    <p>Showing the same person in multiple lineups creates artificial familiarity that witnesses mistake for genuine recognition</p>
+                </div>
+                <div class="info-card">
+                    <h3>Suggestive Procedures</h3>
+                    <p>Officers who know the suspect can unconsciously signal to witnesses through body language or tone</p>
+                </div>
+                <div class="info-card">
+                    <h3>Reinforcement</h3>
+                    <p>Statements like "You picked the same guy" rewrite witness memory, turning uncertainty into false confidence</p>
+                </div>
+            </div>
+
+            <h3>The Collaborative Fiction</h3>
+            <p>These cases demonstrate that when police reinforce a witness's choice, they literally rewrite the witness's memory, creating a <strong>collaborative fiction</strong> that the legal system is ill-equipped to dismantle.</p>
+
+            <p>The witness genuinely believes their contaminated memory. The jury trusts their confidence. The defendant is convicted. And justice fails.</p>
+        </section>
+
+        <!-- ARGUMENT SECTION -->
+        <section id="argument" class="section" aria-labelledby="argument-heading">
+            <h2 id="argument-heading">Argument: The Path to Positive Justice</h2>
+            
+            <h3>From Negative Peace to Positive Justice</h3>
+            <p>The documented pattern of wrongful convictions creates an ethical mandate to implement empirical safeguards that protect the innocent from the systemic amplification of memorial fallibility.</p>
+
+            <div class="quote" role="complementary">
+                "Injustice anywhere is a threat to justice everywhere... We are caught in an inescapable network of mutuality."
+                <span class="quote-author">— Martin Luther King Jr., Letter from Birmingham Jail</span>
+            </div>
+
+            <p>In the context of eyewitness testimony, allowing flawed traditions to persist is not merely a procedural oversight but a <strong>moral failure</strong> that threatens the entire network of justice.</p>
+
+            <h3>Scientific Safeguards: Double-Blind Lineups</h3>
+            <p>To maintain systemic integrity, the legal system must adopt reforms that bridge the gap between procedural tradition and scientific reality.</p>
+
+            <div class="highlight-box" role="complementary">
+                <h3>National Institute of Justice Recommendation</h3>
+                <div class="quote">
+                    "Standardized procedures, such as double-blind lineups, are essential to prevent the contamination of eyewitness evidence."
+                    <span class="quote-author">— Eyewitness Evidence: A Guide for Law Enforcement (3)</span>
+                </div>
+            </div>
+
+            <h3>How Double-Blind Lineups Work</h3>
+            <div class="info-grid" role="complementary">
+                <div class="info-card">
+                    <h3>Step 1: Blind Administration</h3>
+                    <p>The officer administering the lineup does not know who the suspect is</p>
+                </div>
+                <div class="info-card">
+                    <h3>Step 2: Eliminate Cues</h3>
+                    <p>Without knowledge of the suspect, officers cannot provide subtle, unconscious cues</p>
+                </div>
+                <div class="info-card">
+                    <h3>Step 3: Pure Memory</h3>
+                    <p>The witness's identification is based solely on their memory, not external influence</p>
+                </div>
+            </div>
+
+            <p>By ensuring that the officer administering a lineup does not know who the suspect is, the system can eliminate the subtle, often unconscious cues that inflate witness confidence.</p>
+
+            <h3>Protecting the Human Voice Through Science</h3>
+            <p>Implementing these objective solutions bridges the gap between the fragile nature of human memory and the high stakes of criminal justice, ensuring that the "truth" presented in court is a reliable reflection of reality.</p>
+
+            <div class="highlight-box" role="complementary">
+                <p><strong>Key Principle:</strong> The transition toward a more objective legal framework does not require the abandonment of the human voice, but rather the <strong>protection of that voice through scientific rigor</strong>.</p>
+            </div>
+
+            <h3>The Moral Necessity</h3>
+            <p>Ultimately, legitimate justice requires reconciling the moral authority of human testimony with the empirical reality of cognitive fallibility through scientifically validated procedural reforms.</p>
+
+            <p>The controversy over eyewitness testimony exposes a fundamental clash of worldviews:</p>
+            <ul class="key-points">
+                <li>One that prioritizes social order and the authority of human testimony</li>
+                <li>Another that demands empirical reliability to protect the innocent</li>
+            </ul>
+
+            <p>Justice cannot be found in a system that produces measurably wrong outcomes based on manufactured confidence.</p>
+
+            <h3>Conclusion: A Moral Imperative</h3>
+            <p>By acknowledging the "confidence-accuracy paradox" and implementing standardized procedural reforms, the legal system can move toward a "positive justice" that respects both the dignity of the victim and the rights of the accused.</p>
+
+            <div class="stat-box" role="complementary">
+                <span class="description" style="font-size: 1.3rem; line-height: 1.8;">In a system where a single memory can determine the course of a human life, scientific safeguards are not just a technical preference—<strong>they are a moral necessity for a legitimate society.</strong></span>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Sheriff Massaquoi | ENG 1150 | Dr. Kassorla</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">Research sources available upon request</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                
+                // Update active state
+                document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Smooth scroll
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+        // Update active nav link on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('.section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Add focus styles for keyboard navigation
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('focus', function() {
+                this.style.outline = '2px solid #e94560';
+            });
+            
+            link.addEventListener('blur', function() {
+                this.style.outline = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
